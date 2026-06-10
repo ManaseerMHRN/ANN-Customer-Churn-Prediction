@@ -1,10 +1,10 @@
-# 📉 Customer Churn Prediction with Artificial Neural Network
+# Customer Churn Prediction with Artificial Neural Network
 
 A deep learning project that predicts customer churn for a telecom company using an Artificial Neural Network (ANN) built with TensorFlow/Keras.
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 * Overview
 * Dataset
@@ -18,7 +18,7 @@ A deep learning project that predicts customer churn for a telecom company using
 
 ---
 
-## 📖 Overview
+## Overview
 
 Customer churn occurs when a customer stops using a company's services. For telecom companies, retaining customers is crucial for maintaining revenue and reducing acquisition costs.
 
@@ -26,7 +26,7 @@ This project develops a binary classification model using an Artificial Neural N
 
 ---
 
-## 📊 Dataset
+## Dataset
 
 **File:** `Customer_Churn.csv`
 
@@ -44,15 +44,15 @@ The dataset contains customer-level information from a telecom service provider.
 
 ---
 
-## 🔄 Project Workflow
+## Project Workflow
 
-### 1. 🔍 Data Cleaning
+### 1. Data Cleaning
 
 * Removed the `customerID` column.
 * Identified and removed rows where `TotalCharges` contained blank or whitespace values.
 * Converted `TotalCharges` from object type to numeric (`float`).
 
-### 2. 📊 Exploratory Data Analysis (EDA)
+### 2. Exploratory Data Analysis (EDA)
 
 Performed exploratory analysis to understand customer behavior and churn patterns.
 
@@ -68,7 +68,7 @@ Key visualizations included:
 * Customers with shorter tenure are more likely to churn.
 * Customers with higher monthly charges show a greater tendency to churn.
 
-### 3. 🛠️ Feature Engineering & Encoding
+### 3. Feature Engineering & Encoding
 
 * Replaced `"No phone service"` and `"No internet service"` with `"No"` for consistency.
 * Converted binary categorical features (`Yes/No`) into numerical values (`1/0`).
@@ -79,7 +79,7 @@ Key visualizations included:
   * Contract
   * PaymentMethod
 
-### 4. ⚖️ Feature Scaling
+### 4. Feature Scaling
 
 Used **MinMaxScaler** to normalize numerical features:
 
@@ -87,14 +87,14 @@ Used **MinMaxScaler** to normalize numerical features:
 * MonthlyCharges
 * TotalCharges
 
-### 5. 🤖 Model Training
+### 5. Model Training
 
 * Train-test split: **80% training / 20% testing**
 * Random state: **5**
 * Optimizer: **Adam**
 * Epochs: **50**
 
-### 6. 📈 Model Evaluation
+### 6. Model Evaluation
 
 The model was evaluated using:
 
@@ -104,7 +104,7 @@ The model was evaluated using:
 
 ---
 
-## 🧠 Model Architecture
+## Model Architecture
 
 ```text
 Input Layer: 26 Features
@@ -128,7 +128,7 @@ The sigmoid activation function produces a probability score representing the li
 
 ---
 
-## 📈 Results
+## Results
 
 The trained ANN model was evaluated on the held-out test dataset.
 
@@ -151,7 +151,7 @@ The confusion matrix was visualized using a Seaborn heatmap to provide insights 
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 | Technology         | Purpose                        |
 | ------------------ | ------------------------------ |
@@ -166,7 +166,7 @@ The confusion matrix was visualized using a Seaborn heatmap to provide insights 
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -209,19 +209,7 @@ using:
 
 ---
 
-## 📁 Project Structure
-
-```text
-churn-prediction/
-│
-├── Churn_Prediction.ipynb      # Main notebook
-├── Customer_Churn.csv          # Dataset
-└── README.md                   # Project documentation
-```
-
----
-
-## 📌 Notes
+## Notes
 
 * This project is based on the popular **Telco Customer Churn Dataset**.
 * The model was developed and trained using **Google Colab**.
@@ -232,8 +220,8 @@ churn-prediction/
 
 ## 👨‍💻 Author
 
-**Manaseer Maharutheen**
+**Maharuththeen Manaseer**
 
-Information Technology Undergraduate | Aspiring Data Scientist
+Information and Communication Technology Undergraduate | Aspiring Data Scientist
 
 Feel free to fork this repository, explore the code, and contribute improvements.
