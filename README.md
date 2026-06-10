@@ -1,120 +1,239 @@
-Customer Churn Prediction with Artificial Neural Network
+# 📉 Customer Churn Prediction with Artificial Neural Network
+
 A deep learning project that predicts customer churn for a telecom company using an Artificial Neural Network (ANN) built with TensorFlow/Keras.
 
-📋 Table of Contents
+---
 
-Overview
-Dataset
-Project Workflow
-Model Architecture
-Results
-Technologies Used
-Getting Started
-Project Structure
+## 📋 Table of Contents
 
+* Overview
+* Dataset
+* Project Workflow
+* Model Architecture
+* Results
+* Technologies Used
+* Getting Started
+* Project Structure
+* Notes
 
-Overview
-Customer churn — when a customer stops using a service — is a critical business problem for telecom companies. This project builds a binary classification model to predict whether a customer will churn (Yes) or stay (No) based on their account information, services subscribed, and billing details.
+---
 
-Dataset
-File: Customer_Churn.csv
-The dataset contains customer-level information for a telecom provider. Key features include:
-CategoryFeaturesDemographicsgender, SeniorCitizen, Partner, DependentsAccount Infotenure, Contract, PaperlessBilling, PaymentMethodServicesPhoneService, MultipleLines, InternetService, OnlineSecurity, OnlineBackup, DeviceProtection, TechSupport, StreamingTV, StreamingMoviesBillingMonthlyCharges, TotalChargesTargetChurn (Yes / No)
+## 📖 Overview
 
-Note: The customerID column is dropped as it carries no predictive value.
+Customer churn occurs when a customer stops using a company's services. For telecom companies, retaining customers is crucial for maintaining revenue and reducing acquisition costs.
 
+This project develops a binary classification model using an Artificial Neural Network (ANN) to predict whether a customer is likely to churn (`Yes`) or remain with the company (`No`) based on demographic information, subscribed services, account details, and billing information.
 
-Project Workflow
-1. 🔍 Data Cleaning
+---
 
-Removed the customerID column
-Identified and dropped rows where TotalCharges contained blank/whitespace values (11 rows removed)
-Converted TotalCharges from object to float
+## 📊 Dataset
 
-2. 📊 Exploratory Data Analysis (EDA)
+**File:** `Customer_Churn.csv`
 
-Plotted histograms comparing churned vs. retained customers by:
+The dataset contains customer-level information from a telecom service provider.
 
-tenure — customers with shorter tenure are more likely to churn
-MonthlyCharges — higher charges correlate with higher churn
+| Category            | Features                                                                                                                                |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Demographics        | gender, SeniorCitizen, Partner, Dependents                                                                                              |
+| Account Information | tenure, Contract, PaperlessBilling, PaymentMethod                                                                                       |
+| Services            | PhoneService, MultipleLines, InternetService, OnlineSecurity, OnlineBackup, DeviceProtection, TechSupport, StreamingTV, StreamingMovies |
+| Billing             | MonthlyCharges, TotalCharges                                                                                                            |
+| Target Variable     | Churn (Yes / No)                                                                                                                        |
 
+> **Note:** The `customerID` column was removed because it does not provide predictive value for the model.
 
+---
 
-3. 🛠️ Feature Engineering & Encoding
+## 🔄 Project Workflow
 
-Replaced "No phone service" and "No internet service" with "No" for consistency
-Label-encoded binary Yes/No columns to 1/0
-Label-encoded gender (Female=1, Male=0)
-One-hot encoded multi-class columns: InternetService, Contract, PaymentMethod
+### 1. 🔍 Data Cleaning
 
-4. ⚖️ Feature Scaling
+* Removed the `customerID` column.
+* Identified and removed rows where `TotalCharges` contained blank or whitespace values.
+* Converted `TotalCharges` from object type to numeric (`float`).
 
-Applied MinMaxScaler to normalize continuous features: tenure, MonthlyCharges, TotalCharges
+### 2. 📊 Exploratory Data Analysis (EDA)
 
-5. 🤖 Model Training
+Performed exploratory analysis to understand customer behavior and churn patterns.
 
-80/20 train-test split (random_state=5)
-Trained an ANN for 50 epochs using the Adam optimizer
+Key visualizations included:
 
-6. 📈 Evaluation
+* Customer tenure distribution
+* Monthly charges distribution
+* Churn comparison by tenure
+* Churn comparison by monthly charges
 
-Evaluated using accuracy, classification report (precision, recall, F1-score), and a confusion matrix heatmap
+**Key Insights:**
 
+* Customers with shorter tenure are more likely to churn.
+* Customers with higher monthly charges show a greater tendency to churn.
 
-Model Architecture
-Input Layer:  26 features
-      ↓
+### 3. 🛠️ Feature Engineering & Encoding
+
+* Replaced `"No phone service"` and `"No internet service"` with `"No"` for consistency.
+* Converted binary categorical features (`Yes/No`) into numerical values (`1/0`).
+* Encoded gender (`Female = 1`, `Male = 0`).
+* Applied one-hot encoding to multi-class categorical features:
+
+  * InternetService
+  * Contract
+  * PaymentMethod
+
+### 4. ⚖️ Feature Scaling
+
+Used **MinMaxScaler** to normalize numerical features:
+
+* tenure
+* MonthlyCharges
+* TotalCharges
+
+### 5. 🤖 Model Training
+
+* Train-test split: **80% training / 20% testing**
+* Random state: **5**
+* Optimizer: **Adam**
+* Epochs: **50**
+
+### 6. 📈 Model Evaluation
+
+The model was evaluated using:
+
+* Accuracy Score
+* Classification Report
+* Confusion Matrix Heatmap
+
+---
+
+## 🧠 Model Architecture
+
+```text
+Input Layer: 26 Features
+        ↓
 Dense(20, activation='relu')
-      ↓
+        ↓
 Dense(15, activation='relu')
-      ↓
-Dense(1,  activation='sigmoid')   ← Binary output (Churn probability)
-Compilation settings:
+        ↓
+Dense(1, activation='sigmoid')
+```
 
-Optimizer: Adam
-Loss: Binary Crossentropy
-Metric: Accuracy
+### Compilation Settings
 
+| Parameter         | Value               |
+| ----------------- | ------------------- |
+| Optimizer         | Adam                |
+| Loss Function     | Binary Crossentropy |
+| Evaluation Metric | Accuracy            |
 
-Results
-The model is evaluated on the held-out test set (20% of data). Performance metrics include:
+The sigmoid activation function produces a probability score representing the likelihood of customer churn.
 
-Accuracy — from model.evaluate()
-Classification Report — precision, recall, and F1-score per class
-Confusion Matrix — visualized as a heatmap using Seaborn
+---
 
+## 📈 Results
 
-Predictions are thresholded at 0.5: probability > 0.5 → Churn (1), otherwise No Churn (0).
+The trained ANN model was evaluated on the held-out test dataset.
 
+### Evaluation Metrics
 
-Technologies Used
-ToolPurposePython 3Core languagePandasData loading & manipulationNumPyNumerical operationsMatplotlib & SeabornData visualizationScikit-learnPreprocessing, splitting, evaluationTensorFlow / KerasANN model building & trainingGoogle ColabDevelopment environment
+* Accuracy Score
+* Precision
+* Recall
+* F1-Score
+* Confusion Matrix
 
-Getting Started
-Prerequisites
-bashpip install pandas numpy matplotlib seaborn scikit-learn tensorflow
-Running the Notebook
+Predictions were converted into class labels using a threshold of **0.5**:
 
-Clone this repository:
+```python
+prediction > 0.5  → Churn (1)
+prediction ≤ 0.5  → No Churn (0)
+```
 
-bash   git clone https://github.com/your-username/churn-prediction.git
-   cd churn-prediction
+The confusion matrix was visualized using a Seaborn heatmap to provide insights into classification performance.
 
-Upload Customer_Churn.csv to your Google Drive (if using Colab), or update the file path in the notebook to your local path:
+---
 
-python   df = pd.read_csv("Customer_Churn.csv")  # local path
+## 🛠️ Technologies Used
 
-Open and run Churn_Prediction.ipynb in Jupyter Notebook or Google Colab.
+| Technology         | Purpose                        |
+| ------------------ | ------------------------------ |
+| Python 3           | Core programming language      |
+| Pandas             | Data loading and preprocessing |
+| NumPy              | Numerical computations         |
+| Matplotlib         | Data visualization             |
+| Seaborn            | Statistical visualization      |
+| Scikit-learn       | Preprocessing and evaluation   |
+| TensorFlow / Keras | ANN model development          |
+| Google Colab       | Development environment        |
 
+---
 
-Project Structure
+## 🚀 Getting Started
+
+### Prerequisites
+
+Install the required Python packages:
+
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn tensorflow
+```
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/your-username/churn-prediction.git
+cd churn-prediction
+```
+
+### Load the Dataset
+
+If using a local environment:
+
+```python
+df = pd.read_csv("Customer_Churn.csv")
+```
+
+If using Google Colab, upload the dataset to Google Drive and update the file path accordingly.
+
+### Run the Notebook
+
+Open and execute:
+
+```text
+Churn_Prediction.ipynb
+```
+
+using:
+
+* Google Colab
+* Jupyter Notebook
+* JupyterLab
+
+---
+
+## 📁 Project Structure
+
+```text
 churn-prediction/
 │
-├── Churn_Prediction.ipynb   # Main notebook
-├── Customer_Churn.csv       # Dataset (add your own copy)
-└── README.md                # Project documentation
+├── Churn_Prediction.ipynb      # Main notebook
+├── Customer_Churn.csv          # Dataset
+└── README.md                   # Project documentation
+```
 
-📌 Notes
+---
 
-The dataset used is the popular Telco Customer Churn dataset (available on Kaggle).
-The model was developed and trained on Google Colab using Google Drive for data storage.
+## 📌 Notes
+
+* This project is based on the popular **Telco Customer Churn Dataset**.
+* The model was developed and trained using **Google Colab**.
+* Google Drive was used for dataset storage and access.
+* This project demonstrates an end-to-end machine learning workflow including data preprocessing, exploratory data analysis, feature engineering, neural network training, and model evaluation.
+
+---
+
+## 👨‍💻 Author
+
+**Manaseer Maharutheen**
+
+Information Technology Undergraduate | Aspiring Data Scientist
+
+Feel free to fork this repository, explore the code, and contribute improvements.
